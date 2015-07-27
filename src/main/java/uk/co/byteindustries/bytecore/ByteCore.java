@@ -1,5 +1,7 @@
 package uk.co.byteindustries.bytecore;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
  *  |  _ \ \   / /__   __|  ____/ ____/ __ \|  __ \|  ____| *
@@ -12,4 +14,7 @@ package uk.co.byteindustries.bytecore;
  * Author: Byte Industries      License: Apache License 2.0 *
  ************************************************************/
 public class ByteCore {
+
+    public static JavaPlugin PLUGIN;
+
 }
