@@ -50,9 +50,9 @@ public class LocationUtils {
      * In this case this is the player's location.
      *
      * @param player Starting location
-     * @param x Adds into the x coordinate
-     * @param y Adds into the y coordinate
-     * @param z Adds into the z coordinate
+     * @param x        Adds into the x coordinate
+     * @param y        Adds into the y coordinate
+     * @param z        Adds into the z coordinate
      * @return The block relative to the player location
      */
     public Location getBlockRelativeTo(Player player, int x, int y, int z) {
