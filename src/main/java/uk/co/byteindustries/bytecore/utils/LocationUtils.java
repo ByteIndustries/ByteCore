@@ -79,7 +79,14 @@ public class LocationUtils {
         return "(" + xString + " : " + yString + " : " + zString + ") <= " + worldString;
     }
 
+    /**
+     * Gets the location of the specified player.
+     *
+     * @param player The player you are getting the location from.
+     * @return Player location.
+     */
     public static Location getPlayerLocation(Player player) {
         return player.getLocation();
     }
+
 }
