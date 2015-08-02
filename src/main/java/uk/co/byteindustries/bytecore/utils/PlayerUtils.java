@@ -23,7 +23,7 @@ public class PlayerUtils {
     /**
      * Clears the inventory and the armour of the player.
      *
-     * @param player the player for the inventory to be cleared with.
+     * @param player The player for the inventory to be cleared with.
      */
     public static void clearInventory(Player player) {
         clearInventory(player, true);
@@ -32,8 +32,8 @@ public class PlayerUtils {
     /**
      * Clears the inventory of the player (and armour if specified).
      *
-     * @param player the player for the inventory to be cleared with.
-     * @param armour if true, player's armour will also be cleared.
+     * @param player The player for the inventory to be cleared with.
+     * @param armour If true, player's armour will also be cleared.
      */
     public static void clearInventory(Player player, boolean armour) {
         player.getInventory().clear();
@@ -48,7 +48,7 @@ public class PlayerUtils {
     /**
      * Clears the armour of the player.
      *
-     * @param player the player for the armour to be cleared with.
+     * @param player The player for the armour to be cleared with.
      */
     public static void clearArmour(Player player) {
         player.getInventory().setArmorContents(new ItemStack[4]);
@@ -61,14 +61,42 @@ public class PlayerUtils {
     /**
      * Heal the player by setting health and food level to maximum, whilst removing potion effects.
      *
-     * @param player the player to be healed.
+     * @param player Represents the player that is healed.
      */
     public static void heal(Player player) {
-        player.setHealth(player.getMaxHealth());
-        player.setFoodLevel(20);
+        heal(player, player.getMaxHealth(), 20, true);
+    }
 
-        for (PotionEffect potionEffect : player.getActivePotionEffects()) {
-            player.removePotionEffect(potionEffect.getType());
+    /**
+     * @param player Represents the player that is healed.
+     * @param health Represents a double value to which the player's health level is being set.
+     */
+    public static void heal(Player player, double health) {
+        heal(player, health, 20, true);
+    }
+
+    /**
+     * @param player Represents the player that is healed.
+     * @param health Represents a double value to which the player's health level is being set.
+     * @param food Represents an integer value to which the player's food level is being set.
+     */
+    public static void heal(Player player, double health, int food) {
+        heal(player, health, food, true);
+    }
+
+    /**
+     * @param player Represents the player that is healed.
+     * @param health Represents a double value to which the player's health level is being set.
+     * @param food Represents an integer value to which the player's food level is being set.
+     * @param removeEffects If <code>true</code> all of the active potion effects on the player get removed.
+     */
+    public static void heal(Player player, double health, int food, boolean removeEffects) {
+        player.setHealth(health);
+        player.setFoodLevel(food);
+        if (removeEffects) {
+            for (PotionEffect potionEffect : player.getActivePotionEffects()) {
+                player.removePotionEffect(potionEffect.getType());
+            }
         }
     }
 
