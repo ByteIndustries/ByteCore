@@ -93,6 +93,7 @@ public class PlayerUtils {
     public static void heal(Player player, double health, int food, boolean removeEffects) {
         player.setHealth(health);
         player.setFoodLevel(food);
+        
         if (removeEffects) {
             for (PotionEffect potionEffect : player.getActivePotionEffects()) {
                 player.removePotionEffect(potionEffect.getType());
