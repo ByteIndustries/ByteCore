@@ -4,19 +4,17 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-/**
- * *********************************************************
- * ______     _________ ______ _____ ____  _____  ______  *
- * |  _ \ \   / /__   __|  ____/ ____/ __ \|  __ \|  ____| *
- * | |_) \ \_/ /   | |  | |__ | |   | |  | | |__) | |__    *
- * |  _ < \   /    | |  |  __|| |   | |  | |  _  /|  __|   *
- * | |_) | | |     | |  | |___| |___| |__| | | \ \| |____  *
- * |____/  |_|     |_|  |______\_____\____/|_|  \_\______| *
- * *
- * ***********************************************************
+/************************************************************
+ *   ______     _________ ______ _____ ____  _____  ______  *
+ *  |  _ \ \   / /__   __|  ____/ ____/ __ \|  __ \|  ____| *
+ *  | |_) \ \_/ /   | |  | |__ | |   | |  | | |__) | |__    *
+ *  |  _ < \   /    | |  |  __|| |   | |  | |  _  /|  __|   *
+ *  | |_) | | |     | |  | |___| |___| |__| | | \ \| |____  *
+ *  |____/  |_|     |_|  |______\_____\____/|_|  \_\______| *
+ *                                                          *
+ ************************************************************
  * Author: Byte Industries      License: Apache License 2.0 *
- * **********************************************************
- */
+ ************************************************************/
 public class LocationUtils {
 
     /**
@@ -50,9 +48,9 @@ public class LocationUtils {
      * In this case this is the player's location.
      *
      * @param player Starting location
-     * @param x        Adds into the x coordinate
-     * @param y        Adds into the y coordinate
-     * @param z        Adds into the z coordinate
+     * @param x      Adds into the x coordinate
+     * @param y      Adds into the y coordinate
+     * @param z      Adds into the z coordinate
      * @return The block relative to the player location
      */
     public Location getBlockRelativeTo(Player player, int x, int y, int z) {

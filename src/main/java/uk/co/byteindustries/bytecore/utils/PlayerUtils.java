@@ -4,8 +4,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import uk.co.byteindustries.bytecore.ByteCore;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
@@ -122,4 +126,33 @@ public class PlayerUtils {
         teleport(player, player2.getLocation());
     }
 
+    /**
+     * @param plugin The plugin that is using the method. Usually your main plugin class.
+     * @param player The player that is being teleported to a server.
+     * @param server The target server.
+     * @param message The message that is being sent to the player before he gets teleported.
+     */
+    public static void teleportToServer(Plugin plugin, Player player, String server, String message) {
+        player.sendMessage(message);
+        teleportToServer(plugin, player, server);
+    }
+
+    /**
+     * @param plugin The plugin that is using the method. Usually your main plugin class.
+     * @param player The player that is being teleported to a server.
+     * @param server The target server.
+     */
+    public static void teleportToServer(Plugin plugin, Player player, String server) {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        DataOutputStream stream = new DataOutputStream(b);
+
+        try {
+            stream.writeUTF("Connect");
+            stream.writeUTF(server);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        player.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
+    }
 }
