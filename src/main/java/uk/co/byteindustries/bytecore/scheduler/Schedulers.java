@@ -110,7 +110,7 @@ public class Schedulers {
      * Class for sync schedulers.
      */
     private static class SyncSchedulers {
-
+        
         /**
          * @param runnable The runnable that is being executed.
          * @param startDelay The delay before the task starts.
@@ -151,5 +151,6 @@ public class Schedulers {
                 }
             }, repeatDelay, startDelay);
         }
+        
     }
 }
