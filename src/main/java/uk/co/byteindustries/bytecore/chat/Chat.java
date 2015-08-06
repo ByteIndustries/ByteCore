@@ -69,6 +69,7 @@ public class Chat {
     public static void sendCrossServer(Plugin plugin, Player sender, String receiver, String message) {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream stream = new DataOutputStream(b);
+
         try {
             stream.writeUTF("Message");
             stream.writeUTF(receiver);
@@ -76,6 +77,7 @@ public class Chat {
         }catch (Exception e) {
             e.printStackTrace();
         }
+
         sender.sendPluginMessage(plugin , "BungeeCord", b.toByteArray());
     }
 
