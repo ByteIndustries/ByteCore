@@ -111,8 +111,6 @@ public class Schedulers {
      */
     private static class SyncSchedulers {
 
-        private ArrayList<ScheduledFuture<?>> syncTasks = new ArrayList<>();
-
         /**
          * @param runnable The runnable that is being executed.
          * @param startDelay The delay before the task starts.
@@ -152,21 +150,6 @@ public class Schedulers {
                     });
                 }
             }, repeatDelay, startDelay);
-        }
-
-        /**
-         * Terminates all scheduled sync tasks.
-         */
-        public void terminateAllTasks() {
-            for (ScheduledFuture<?> task : syncTasks) {
-                task.cancel(false);
-            }
-            syncTasks.clear();
-            try {
-                getScheduledExecutorService().awaitTermination(2, SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
