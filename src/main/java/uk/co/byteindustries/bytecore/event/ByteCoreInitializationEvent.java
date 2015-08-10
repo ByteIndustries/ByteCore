@@ -14,6 +14,10 @@ public class ByteCoreInitializationEvent extends Event {
         this.plugin = plugin;
     }
 
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
+
     @Override
     public HandlerList getHandlers() {
         return HANDLER_LIST;
