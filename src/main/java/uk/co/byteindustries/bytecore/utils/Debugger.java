@@ -1,7 +1,6 @@
 package uk.co.byteindustries.bytecore.utils;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import uk.co.byteindustries.bytecore.scheduler.Schedulers;
 
 import java.io.BufferedWriter;
 import java.io.File;
