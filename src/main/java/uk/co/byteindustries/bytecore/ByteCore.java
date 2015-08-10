@@ -1,6 +1,8 @@
 package uk.co.byteindustries.bytecore;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import uk.co.byteindustries.bytecore.event.ByteCoreInitializationEvent;
 
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
@@ -17,4 +19,8 @@ public class ByteCore {
 
     public static JavaPlugin PLUGIN;
 
+    public static void initializeByteCore(JavaPlugin plugin) {
+        PLUGIN = plugin;
+        Bukkit.getServer().getPluginManager().callEvent(new ByteCoreInitializationEvent(PLUGIN));
+    }
 }
