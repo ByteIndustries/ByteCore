@@ -24,8 +24,8 @@ public class LocationUtils {
      * @return The center of the specified location/block.
      */
     public static Location getBlockCenter(Location location) {
-        double xCen = location.getX() / 2;
-        double zCen = location.getZ() / 2;
+        double xCen = location.getX() - 0.5;
+        double zCen = location.getZ() - 0.5;
 
         return new Location(location.getWorld(), xCen, location.getY(), zCen);
     }
