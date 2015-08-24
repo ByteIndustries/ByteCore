@@ -23,50 +23,50 @@ import java.util.Date;
  ************************************************************/
 public class Debugger {
 
-    private File       file;
-    public  JavaPlugin plugin;
+	public  JavaPlugin plugin;
+	private File       file;
 
-    public Debugger(JavaPlugin plugin) {
-        initialize(plugin);
-    }
+	public Debugger(JavaPlugin plugin) {
+		initialize(plugin);
+	}
 
-    /**
-     * Initialize the debugger.
-     *
-     * @param plugin the plugin, used for grabbing the data folder to store the debug message in.
-     */
-    private void initialize(JavaPlugin plugin) {
-        this.file = new File(plugin.getDataFolder(), "debug.txt");
-        this.plugin = plugin;
-    }
+	/**
+	 * Initialize the debugger.
+	 *
+	 * @param plugin the plugin, used for grabbing the data folder to store the debug message in.
+	 */
+	private void initialize(JavaPlugin plugin) {
+		this.file = new File(plugin.getDataFolder(), "debug.txt");
+		this.plugin = plugin;
+	}
 
-    /**
-     * Log a message in the debug file.
-     *
-     * @param message Message to be logged.
-     */
-    public void log(String message) {
-        try {
-            BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
+	/**
+	 * Log a message in the debug file.
+	 *
+	 * @param message Message to be logged.
+	 */
+	public void log(String message) {
+		try {
+			BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
 
-            output.write("[" + plugin.getName() + "] " + getDateAndTime() + " " + message);
+			output.write("[" + plugin.getName() + "] " + getDateAndTime() + " " + message);
 
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Grab the date and time in a readable String with the format [dd/MM/yy] [HH:mm:ss].
-     *
-     * @return date and time in a format.
-     */
-    private String getDateAndTime() {
-        DateFormat df   = new SimpleDateFormat("[dd/MM/yy] [HH:mm:ss]");
-        Date       date = new Date();
+	/**
+	 * Grab the date and time in a readable String with the format [dd/MM/yy] [HH:mm:ss].
+	 *
+	 * @return date and time in a format.
+	 */
+	private String getDateAndTime() {
+		DateFormat df   = new SimpleDateFormat("[dd/MM/yy] [HH:mm:ss]");
+		Date       date = new Date();
 
-        return df.format(date);
-    }
+		return df.format(date);
+	}
 
 }

@@ -19,16 +19,16 @@ import java.util.concurrent.ScheduledExecutorService;
  ************************************************************/
 public class SchedulerManager {
 
-    private static ScheduledExecutorService scheduledExecutorService;
+	private static ScheduledExecutorService scheduledExecutorService;
 
-    public static Schedulers getSchedulers(Plugin plugin) {
-        return new Schedulers(plugin);
-    }
+	public static Schedulers getSchedulers(Plugin plugin) {
+		return new Schedulers(plugin);
+	}
 
-    public static ScheduledExecutorService getScheduledExecutorService() {
-        if (scheduledExecutorService == null) {
-            scheduledExecutorService = Executors.newScheduledThreadPool(10);
-        }
-        return scheduledExecutorService;
-    }
+	public static ScheduledExecutorService getScheduledExecutorService() {
+		if (scheduledExecutorService == null) {
+			scheduledExecutorService = Executors.newScheduledThreadPool(10);
+		}
+		return scheduledExecutorService;
+	}
 }

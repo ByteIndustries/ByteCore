@@ -12,5 +12,5 @@ package uk.co.byteindustries.bytecore.titlemanager;
  * Author: Byte Industries      License: Apache License 2.0 *
  ************************************************************/
 public enum TitleType {
-    TITLE, SUBTITLE
+	TITLE, SUBTITLE
 }

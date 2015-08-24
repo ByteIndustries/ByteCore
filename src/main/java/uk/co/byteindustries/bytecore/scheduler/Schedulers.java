@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledFuture;
 
-import static uk.co.byteindustries.bytecore.scheduler.SchedulerManager.getScheduledExecutorService;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static uk.co.byteindustries.bytecore.scheduler.SchedulerManager.getScheduledExecutorService;
 
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
@@ -24,133 +24,133 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  ************************************************************/
 public class Schedulers {
 
-    private static Plugin plugin;
+	private static Plugin plugin;
 
-    public static AsyncSchedulers getAsyncSchedulers() {
-        return new AsyncSchedulers();
-    }
+	Schedulers(Plugin plugin) {
+		Schedulers.plugin = plugin;
+	}
 
-    public static SyncSchedulers getSyncSchedulers() {
-        return new SyncSchedulers();
-    }
+	private Schedulers() {
+	}
 
-    Schedulers(Plugin plugin) {
-        Schedulers.plugin = plugin;
-    }
+	public static AsyncSchedulers getAsyncSchedulers() {
+		return new AsyncSchedulers();
+	}
 
-    private Schedulers() {
-    }
+	public static SyncSchedulers getSyncSchedulers() {
+		return new SyncSchedulers();
+	}
 
-    /**
-     * Class for async schedulers.
-     */
-    private static class AsyncSchedulers {
+	/**
+	 * Class for async schedulers.
+	 */
+	private static class AsyncSchedulers {
 
-        private ArrayList<ScheduledFuture<?>> asyncTasks = new ArrayList<>();
+		private ArrayList<ScheduledFuture<?>> asyncTasks = new ArrayList<>();
 
-        /**
-         * Runs a delayed task asynchronously.
-         *
-         * @param runnable   The runnable that is being executed.
-         * @param startDelay The delay before the task starts.
-         * @return Task
-         */
-        public ScheduledFuture<?> runAsyncDelayedTask(Runnable runnable, long startDelay) {
-            ScheduledFuture<?> s = getScheduledExecutorService().schedule(runnable, startDelay, SECONDS);
-            asyncTasks.add(s);
-            return s;
-        }
+		/**
+		 * Runs a delayed task asynchronously.
+		 *
+		 * @param runnable   The runnable that is being executed.
+		 * @param startDelay The delay before the task starts.
+		 * @return Task
+		 */
+		public ScheduledFuture<?> runAsyncDelayedTask(Runnable runnable, long startDelay) {
+			ScheduledFuture<?> s = getScheduledExecutorService().schedule(runnable, startDelay, SECONDS);
+			asyncTasks.add(s);
+			return s;
+		}
 
-        /**
-         * Runs a task asynchronously.
-         *
-         * @param runnable The runnable that is being executed.
-         * @return Task
-         */
-        public ScheduledFuture<?> runAsyncTask(Runnable runnable) {
-            ScheduledFuture<?> s = getScheduledExecutorService().schedule(runnable, 0, SECONDS);
-            asyncTasks.add(s);
-            return s;
-        }
+		/**
+		 * Runs a task asynchronously.
+		 *
+		 * @param runnable The runnable that is being executed.
+		 * @return Task
+		 */
+		public ScheduledFuture<?> runAsyncTask(Runnable runnable) {
+			ScheduledFuture<?> s = getScheduledExecutorService().schedule(runnable, 0, SECONDS);
+			asyncTasks.add(s);
+			return s;
+		}
 
 
-        /**
-         * Runs a repeating task asynchronously.
-         *
-         * @param runnable    The runnable that is being executed.
-         * @param repeatDelay The delay before the next execution.
-         * @param startDelay  The delay before the task starts.
-         * @return Task
-         */
-        public ScheduledFuture<?> runAsyncRepeatingTask(Runnable runnable, long repeatDelay, long startDelay) {
-            ScheduledFuture<?> s = getScheduledExecutorService().scheduleWithFixedDelay(runnable, repeatDelay, startDelay, SECONDS);
-            asyncTasks.add(s);
-            return s;
-        }
+		/**
+		 * Runs a repeating task asynchronously.
+		 *
+		 * @param runnable    The runnable that is being executed.
+		 * @param repeatDelay The delay before the next execution.
+		 * @param startDelay  The delay before the task starts.
+		 * @return Task
+		 */
+		public ScheduledFuture<?> runAsyncRepeatingTask(Runnable runnable, long repeatDelay, long startDelay) {
+			ScheduledFuture<?> s = getScheduledExecutorService().scheduleWithFixedDelay(runnable, repeatDelay, startDelay, SECONDS);
+			asyncTasks.add(s);
+			return s;
+		}
 
-        /**
-         * Terminates all scheduled async tasks.
-         */
-        public void terminateAllTasks() {
-            for (ScheduledFuture<?> task : asyncTasks) {
-                task.cancel(false);
-            }
+		/**
+		 * Terminates all scheduled async tasks.
+		 */
+		public void terminateAllTasks() {
+			for (ScheduledFuture<?> task : asyncTasks) {
+				task.cancel(false);
+			}
 
-            asyncTasks.clear();
+			asyncTasks.clear();
 
-            try {
-                getScheduledExecutorService().awaitTermination(2, SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+			try {
+				getScheduledExecutorService().awaitTermination(2, SECONDS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    /**
-     * Class for sync schedulers.
-     */
-    private static class SyncSchedulers {
-        
-        /**
-         * @param runnable The runnable that is being executed.
-         * @param startDelay The delay before the task starts.
-         * @return <code>null</code>
-         */
-        public ScheduledFuture<?> runSyncTask(final Runnable runnable, long startDelay) {
-            return Schedulers.getAsyncSchedulers().runAsyncDelayedTask(new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
-                        @Override
-                        public Object call() throws Exception {
-                            runnable.run();
-                            return null;
-                        }
-                    });
-                }
-            }, startDelay);
-        }
+	/**
+	 * Class for sync schedulers.
+	 */
+	private static class SyncSchedulers {
 
-        /**
-         * @param runnable The runnable that is being executed.
-         * @param repeatDelay The delay before the next execution.
-         * @param startDelay The delay before the task starts.
-         * @return <code>null</code>
-         */
-        public ScheduledFuture<?> runSyncRepeatingTask(final Runnable runnable, long repeatDelay, long startDelay) {
-            return Schedulers.getAsyncSchedulers().runAsyncRepeatingTask(new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
-                        @Override
-                        public Object call() throws Exception {
-                            runnable.run();
-                            return null;
-                        }
-                    });
-                }
-            }, repeatDelay, startDelay);
-        }
-        
-    }
+		/**
+		 * @param runnable The runnable that is being executed.
+		 * @param startDelay The delay before the task starts.
+		 * @return <code>null</code>
+		 */
+		public ScheduledFuture<?> runSyncTask(final Runnable runnable, long startDelay) {
+			return Schedulers.getAsyncSchedulers().runAsyncDelayedTask(new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
+						@Override
+						public Object call() throws Exception {
+							runnable.run();
+							return null;
+						}
+					});
+				}
+			}, startDelay);
+		}
+
+		/**
+		 * @param runnable The runnable that is being executed.
+		 * @param repeatDelay The delay before the next execution.
+		 * @param startDelay The delay before the task starts.
+		 * @return <code>null</code>
+		 */
+		public ScheduledFuture<?> runSyncRepeatingTask(final Runnable runnable, long repeatDelay, long startDelay) {
+			return Schedulers.getAsyncSchedulers().runAsyncRepeatingTask(new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
+						@Override
+						public Object call() throws Exception {
+							runnable.run();
+							return null;
+						}
+					});
+				}
+			}, repeatDelay, startDelay);
+		}
+
+	}
 }

@@ -16,55 +16,55 @@ import org.bukkit.plugin.Plugin;
  ************************************************************/
 public class PluginUtil {
 
-    /**
-     * Enables the specified plugin if it exists or it's not already enabled.
-     *
-     * @param plugin Plugin that is being enabled.
-     */
-    public static void enablePlugin(Plugin plugin) {
-        if (plugin == null) {
-            return;
-        }
+	/**
+	 * Enables the specified plugin if it exists or it's not already enabled.
+	 *
+	 * @param plugin Plugin that is being enabled.
+	 */
+	public static void enablePlugin(Plugin plugin) {
+		if (plugin == null) {
+			return;
+		}
 
-        if (plugin.isEnabled()) {
-            return;
-        }
+		if (plugin.isEnabled()) {
+			return;
+		}
 
-        Bukkit.getServer().getPluginManager().enablePlugin(plugin);
-    }
+		Bukkit.getServer().getPluginManager().enablePlugin(plugin);
+	}
 
-    /**
-     * Disables the specified plugin if it exists or it's not already disabled.
-     *
-     * @param plugin Plugin that is being disabled
-     */
-    public static void disablePlugin(Plugin plugin) {
-        if (plugin == null) {
-            return;
-        }
+	/**
+	 * Disables the specified plugin if it exists or it's not already disabled.
+	 *
+	 * @param plugin Plugin that is being disabled
+	 */
+	public static void disablePlugin(Plugin plugin) {
+		if (plugin == null) {
+			return;
+		}
 
-        if (!plugin.isEnabled()) {
-            return;
-        }
+		if (! plugin.isEnabled()) {
+			return;
+		}
 
-        Bukkit.getServer().getPluginManager().disablePlugin(plugin);
-    }
+		Bukkit.getServer().getPluginManager().disablePlugin(plugin);
+	}
 
-    /**
-     * Enables all disabled plugins on the server.
-     */
-    public static void enableAll() {
-        for (Plugin plugin : Bukkit.getServer().getPluginManager().getPlugins()) {
-            enablePlugin(plugin);
-        }
-    }
+	/**
+	 * Enables all disabled plugins on the server.
+	 */
+	public static void enableAll() {
+		for (Plugin plugin : Bukkit.getServer().getPluginManager().getPlugins()) {
+			enablePlugin(plugin);
+		}
+	}
 
-    /**
-     * Disables all enabled plugins on the server.
-     */
-    public static void disableAll() {
-        for (Plugin plugin : Bukkit.getServer().getPluginManager().getPlugins()) {
-            disablePlugin(plugin);
-        }
-    }
+	/**
+	 * Disables all enabled plugins on the server.
+	 */
+	public static void disableAll() {
+		for (Plugin plugin : Bukkit.getServer().getPluginManager().getPlugins()) {
+			disablePlugin(plugin);
+		}
+	}
 }

@@ -18,23 +18,23 @@ import org.bukkit.plugin.java.JavaPlugin;
  ************************************************************/
 public class ByteCoreInitializationEvent extends Event {
 
-    private static final HandlerList HANDLER_LIST = new HandlerList();
-    private JavaPlugin plugin;
+	private static final HandlerList HANDLER_LIST = new HandlerList();
+	private JavaPlugin plugin;
 
-    public ByteCoreInitializationEvent(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
+	public ByteCoreInitializationEvent(JavaPlugin plugin) {
+		this.plugin = plugin;
+	}
 
-    public JavaPlugin getPlugin() {
-        return plugin;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLER_LIST;
+	}
 
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLER_LIST;
-    }
+	public JavaPlugin getPlugin() {
+		return plugin;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLER_LIST;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLER_LIST;
+	}
 }

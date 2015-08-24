@@ -16,18 +16,18 @@ import org.bukkit.event.HandlerList;
  ************************************************************/
 public class ByteCoreDestroyEvent extends Event {
 
-    private static final HandlerList HANDLER_LIST = new HandlerList();
+	private static final HandlerList HANDLER_LIST = new HandlerList();
 
-    public ByteCoreDestroyEvent() {
+	public ByteCoreDestroyEvent() {
 
-    }
+	}
 
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLER_LIST;
-    }
+	public static HandlerList getHandlerList() {
+		return HANDLER_LIST;
+	}
 
-    public static HandlerList getHandlerList() {
-        return HANDLER_LIST;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return HANDLER_LIST;
+	}
 }
