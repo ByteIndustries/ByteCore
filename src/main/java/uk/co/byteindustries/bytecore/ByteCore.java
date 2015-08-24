@@ -31,6 +31,7 @@ public class ByteCore {
 		if (enabled) {
 			return;
 		}
+
 		PLUGIN = plugin;
 		Bukkit.getServer().getPluginManager().callEvent(new ByteCoreInitializationEvent(PLUGIN));
 		enabled = true;
@@ -43,6 +44,7 @@ public class ByteCore {
 		if (! enabled) {
 			return;
 		}
+		
 		PLUGIN = null;
 		Bukkit.getServer().getPluginManager().callEvent(new ByteCoreDestroyEvent());
 		enabled = false;
