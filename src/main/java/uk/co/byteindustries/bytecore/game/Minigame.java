@@ -1,10 +1,4 @@
-package uk.co.byteindustries.bytecore.scheduler;
-
-
-import org.bukkit.plugin.Plugin;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+package uk.co.byteindustries.bytecore.game;
 
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
@@ -17,19 +11,16 @@ import java.util.concurrent.ScheduledExecutorService;
  ************************************************************
  * Author: Byte Industries      License: Apache License 2.0 *
  ************************************************************/
-public class SchedulerManager {
+public class Minigame {
 
-	private static ScheduledExecutorService scheduledExecutorService;
+	private String name;
 
-	public static Schedulers getSchedulers(Plugin plugin) {
-		return new Schedulers(plugin);
+	private Minigame(String name) {
+
 	}
 
-	public static ScheduledExecutorService getScheduledExecutorService() {
-		if (scheduledExecutorService == null) {
-			scheduledExecutorService = Executors.newScheduledThreadPool(10);
-		}
-
-		return scheduledExecutorService;
+	public String getName() {
+		return this.name;
 	}
+
 }

@@ -44,7 +44,7 @@ public class ByteCore {
 		if (! enabled) {
 			return;
 		}
-		
+
 		PLUGIN = null;
 		Bukkit.getServer().getPluginManager().callEvent(new ByteCoreDestroyEvent());
 		enabled = false;

@@ -1,6 +1,5 @@
 package uk.co.byteindustries.bytecore.scheduler;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -46,7 +45,7 @@ public class Schedulers {
 	 */
 	private static class AsyncSchedulers {
 
-		private ArrayList<ScheduledFuture<?>> asyncTasks = new ArrayList<>();
+		private ArrayList<ScheduledFuture<?>> asyncTasks = new ArrayList<ScheduledFuture<?>>();
 
 		/**
 		 * Runs a delayed task asynchronously.
@@ -118,10 +117,8 @@ public class Schedulers {
 		 */
 		public ScheduledFuture<?> runSyncTask(final Runnable runnable, long startDelay) {
 			return Schedulers.getAsyncSchedulers().runAsyncDelayedTask(new Runnable() {
-				@Override
 				public void run() {
 					Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
-						@Override
 						public Object call() throws Exception {
 							runnable.run();
 							return null;
@@ -139,10 +136,8 @@ public class Schedulers {
 		 */
 		public ScheduledFuture<?> runSyncRepeatingTask(final Runnable runnable, long repeatDelay, long startDelay) {
 			return Schedulers.getAsyncSchedulers().runAsyncRepeatingTask(new Runnable() {
-				@Override
 				public void run() {
 					Bukkit.getServer().getScheduler().callSyncMethod(plugin, new Callable<Object>() {
-						@Override
 						public Object call() throws Exception {
 							runnable.run();
 							return null;
