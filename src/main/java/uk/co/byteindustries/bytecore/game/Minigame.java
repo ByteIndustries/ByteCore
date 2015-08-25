@@ -88,6 +88,16 @@ public abstract class Minigame {
 	public abstract boolean canGameStart();
 
 	/**
+	 * Start the game.
+	 */
+	public abstract void start();
+
+	/**
+	 * Stop the game.
+	 */
+	public abstract void stop();
+
+	/**
 	 * Get whether the player is in the game.
 	 *
 	 * @param player The Bukkit player to be checked.
