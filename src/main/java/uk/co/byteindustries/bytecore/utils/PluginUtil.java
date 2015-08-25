@@ -1,6 +1,8 @@
 package uk.co.byteindustries.bytecore.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 /************************************************************
@@ -67,4 +69,14 @@ public class PluginUtil {
 			disablePlugin(plugin);
 		}
 	}
+
+	/**
+	 * Unregister the given listener in all events.
+	 *
+	 * @param listener The listener to be unregistered.
+	 */
+	public static void unregisterListener(Listener listener) {
+		HandlerList.unregisterAll(listener);
+	}
+
 }

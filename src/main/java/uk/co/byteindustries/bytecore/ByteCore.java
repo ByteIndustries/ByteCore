@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.co.byteindustries.bytecore.event.ByteCoreDestroyEvent;
 import uk.co.byteindustries.bytecore.event.ByteCoreInitializationEvent;
+import uk.co.byteindustries.bytecore.utils.Debugger;
 
 /************************************************************
  *   ______     _________ ______ _____ ____  _____  ______  *
@@ -18,7 +19,8 @@ import uk.co.byteindustries.bytecore.event.ByteCoreInitializationEvent;
  ************************************************************/
 public class ByteCore {
 
-	public static JavaPlugin PLUGIN;
+	public static  JavaPlugin PLUGIN;
+	private static Debugger   debugger;
 
 	private static boolean enabled = false;
 
@@ -49,4 +51,23 @@ public class ByteCore {
 		Bukkit.getServer().getPluginManager().callEvent(new ByteCoreDestroyEvent());
 		enabled = false;
 	}
+
+	/**
+	 * Get the debugger for ByteCore to use.
+	 *
+	 * @return The debugger used by the plugin.
+	 */
+	public static Debugger getDebugger() {
+		return debugger;
+	}
+
+	/**
+	 * Sets the plugin's debugger for ByteCore to access.
+	 *
+	 * @param debugger The debugger that belongs to the plugin using ByteCore.
+	 */
+	public static void setDebugger(Debugger debugger) {
+		ByteCore.debugger = debugger;
+	}
+
 }

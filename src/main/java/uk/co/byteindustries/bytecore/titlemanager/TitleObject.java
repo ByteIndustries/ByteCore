@@ -27,7 +27,6 @@ public class TitleObject {
 	private int    stay;
 	private int    fadeOut;
 
-
 	public TitleObject(String title, int fadeIn, int stay, int fadeOut) {
 		this.title = title;
 		this.fadeIn = fadeIn;
