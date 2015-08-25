@@ -1,7 +1,11 @@
 package uk.co.byteindustries.bytecore.game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import uk.co.byteindustries.bytecore.ByteCore;
+import uk.co.byteindustries.bytecore.utils.PluginUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,12 +22,15 @@ import java.util.List;
  ************************************************************/
 public abstract class Minigame {
 
-	private String     name;
-	private List<Team> teams;
+	private String          name;
+	private List<Team>      teams;
+	private List<GameStage> stages;
+	private GameStage       currentStage;
 
 	protected Minigame(String name, Team... teams) {
 		this.name = name;
 		this.teams = Arrays.asList(teams);
+		this.stages = new ArrayList<GameStage>();
 	}
 
 	/**
@@ -104,6 +111,50 @@ public abstract class Minigame {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Add the stage to the stages list.
+	 *
+	 * @param stage The stage to be added.
+	 */
+	public void addStage(GameStage stage) {
+		stages.add(stage);
+	}
+
+	/**
+	 * Remove a stage from the stages list.
+	 *
+	 * @param stage The stage to be removed.
+	 */
+	public void removeStage(GameStage stage) {
+		if(stages.contains(stage)) {
+			stages.remove(stage);
+		}
+	}
+
+	/**
+	 * Get the list of stages: this does not influence the game play (it is simply for API purpose).
+	 *
+	 * @return The list of stages.
+	 */
+	public List<GameStage> getStages() {
+		return stages;
+	}
+
+	/**
+	 * Set the current stage.
+	 *
+	 * @param stage The stage to be set as current.
+	 */
+	public void setCurrentStage(GameStage stage) {
+		if(currentStage != null) {
+			PluginUtils.unregisterListener(currentStage);
+		}
+
+		Bukkit.getPluginManager().registerEvents(stage, ByteCore.PLUGIN);
+
+		currentStage = stage;
 	}
 
 }

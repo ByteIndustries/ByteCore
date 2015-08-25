@@ -16,7 +16,7 @@ import org.bukkit.plugin.Plugin;
  ************************************************************
  * Author: Byte Industries      License: Apache License 2.0 *
  ************************************************************/
-public class PluginUtil {
+public class PluginUtils {
 
 	/**
 	 * Enables the specified plugin if it exists or it's not already enabled.
