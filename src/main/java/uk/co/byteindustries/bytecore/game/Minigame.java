@@ -128,7 +128,7 @@ public abstract class Minigame {
 	 * @param stage The stage to be removed.
 	 */
 	public void removeStage(GameStage stage) {
-		if(stages.contains(stage)) {
+		if (stages.contains(stage)) {
 			stages.remove(stage);
 		}
 	}
@@ -143,12 +143,21 @@ public abstract class Minigame {
 	}
 
 	/**
+	 * Get the current stage.
+	 *
+	 * @return The game's current stage.
+	 */
+	public GameStage getCurrentStage() {
+		return currentStage;
+	}
+
+	/**
 	 * Set the current stage.
 	 *
 	 * @param stage The stage to be set as current.
 	 */
 	public void setCurrentStage(GameStage stage) {
-		if(currentStage != null) {
+		if (currentStage != null) {
 			PluginUtils.unregisterListener(currentStage);
 		}
 
