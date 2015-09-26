@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -134,6 +135,22 @@ public abstract class ByteEnchantment extends Enchantment implements Listener {
      */
     public abstract void place(Player player, Block block);
 
+    /**
+     * Run when the player holds the item with the enchantment.
+     *
+     * @param player The player that holds the item.
+     * @param item The item that is being held.
+     */
+    public abstract void onHold(Player player, ItemStack item);
+
+    /**
+     * Run when the player unholds the item with the enchantment.
+     *
+     * @param player The player that no longer holds the item.
+     * @param item The item that was held.
+     */
+    public abstract void onUnhold(Player player, ItemStack item);
+
     @EventHandler(ignoreCancelled = false)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (event.getPlayer().getItemInHand().hasItemMeta()
@@ -183,6 +200,17 @@ public abstract class ByteEnchantment extends Enchantment implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerItemChange(PlayerItemHeldEvent event) {
+        if(isItemEnchanted(event.getPlayer().getInventory().getItem(event.getPreviousSlot()))) {
+            onUnhold(event.getPlayer(), event.getPlayer().getInventory().getItem(event.getPreviousSlot()));
+        }
+
+        if(isItemEnchanted(event.getPlayer().getInventory().getItem(event.getNewSlot()))) {
+            onHold(event.getPlayer(), event.getPlayer().getInventory().getItem(event.getNewSlot()));
+        }
+    }
+
     public void apply(ItemStack itemStack, int level) {
         if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore()
                 && itemStack.getItemMeta().getLore().contains(getDisplayName())) {
@@ -193,7 +221,7 @@ public abstract class ByteEnchantment extends Enchantment implements Listener {
                 itemStack.getType());
 
         List<String> lore = itemMeta.hasLore() ? itemMeta.getLore() : new ArrayList<String>();
-        lore.add(ChatColor.translateAlternateColorCodes('&', itemMeta.getDisplayName()));
+        lore.add(ChatColor.translateAlternateColorCodes('&', getDisplayName()));
         itemMeta.setLore(lore);
 
         itemStack.setItemMeta(itemMeta);
@@ -218,6 +246,23 @@ public abstract class ByteEnchantment extends Enchantment implements Listener {
         }
 
         return true;
+    }
+
+    private boolean isItemEnchanted(ItemStack item) {
+        if(item == null) {
+            return false;
+        }
+
+        if (item.hasItemMeta() &&
+                item.getItemMeta().hasLore()) {
+            for(String loreMessage : item.getItemMeta().getLore()) {
+                if(loreMessage.contains(getDisplayName())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
