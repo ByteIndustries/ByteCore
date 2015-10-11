@@ -33,6 +33,11 @@
               <shadedPattern>uk.co.byteindustries.bytecore.lib.hikari</shadedPattern>
             </relocation>
           </relocations>
+          <artifactSet>
+            <includes>
+              <include>com.zaxxer:HikariCP</include>
+            </includes>
+          </artifactSet>
         </configuration>
       </plugin>
     </plugins>
@@ -43,5 +48,13 @@
       <url>http://hub.spigotmc.org/nexus/content/groups/public</url>
     </repository>
   </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.8.7-R0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
 
