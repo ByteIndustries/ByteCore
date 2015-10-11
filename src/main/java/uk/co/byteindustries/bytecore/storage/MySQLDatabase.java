@@ -1,7 +1,5 @@
 package uk.co.byteindustries.bytecore.storage;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class MySQLDatabase extends Database {
 
     /**
