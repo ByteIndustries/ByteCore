@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 import uk.co.byteindustries.bytecore.ByteCore;
 
+import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,10 @@ import java.util.concurrent.*;
 public abstract class Database {
 
     private HikariDataSource dataSource;
+
+    public DataSource getDatasource(){
+        return dataSource;
+    }
 
     /**
      * Initialize a Database connection.
