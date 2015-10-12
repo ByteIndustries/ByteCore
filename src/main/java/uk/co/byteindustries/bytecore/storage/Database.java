@@ -79,9 +79,16 @@ public abstract class Database {
             CachedRowSet cachedRowSet = new CachedRowSetImpl();
             cachedRowSet.populate(resultSet);
             resultSet.close();
+            preparedStatement.getConnection().close();
             if(cachedRowSet.size() > 0) return cachedRowSet;
         } catch (SQLException e) {
+
             e.printStackTrace();
+            try {
+                preparedStatement.getConnection().close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
         return null;
     }
