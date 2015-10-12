@@ -11,8 +11,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -33,6 +33,11 @@
               <shadedPattern>uk.co.byteindustries.bytecore.lib.hikari</shadedPattern>
             </relocation>
           </relocations>
+          <artifactSet>
+            <includes>
+              <include>com.zaxxer:HikariCP</include>
+            </includes>
+          </artifactSet>
         </configuration>
       </plugin>
     </plugins>
@@ -43,5 +48,13 @@
       <url>http://hub.spigotmc.org/nexus/content/groups/public</url>
     </repository>
   </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.8.7-R0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
 

@@ -62,7 +62,7 @@ public abstract class Database {
      * Close all current connections and disconnect from the database.
      */
     public void disconnect() {
-        dataSource.shutdown();
+        dataSource.close();
     }
 
     /**
@@ -72,48 +72,18 @@ public abstract class Database {
      * @return A CachedRowSet with data from query, or null when an error has occurred.
      */
     public CachedRowSet query(final PreparedStatement preparedStatement) {
-        CachedRowSet rowSet = null;
 
         try {
-            ExecutorService exe = Executors.newCachedThreadPool();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            Future<CachedRowSet> future = exe.submit(new Callable<CachedRowSet>() {
-                public CachedRowSet call() {
-                    try {
-                        ResultSet resultSet = preparedStatement.executeQuery();
-
-                        CachedRowSet cachedRowSet = new CachedRowSetImpl();
-                        cachedRowSet.populate(resultSet);
-                        resultSet.close();
-
-                        if (cachedRowSet.next()) {
-                            return cachedRowSet;
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            preparedStatement.close();
-                            preparedStatement.getConnection().close();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    return null;
-                }
-            });
-
-            if (future.get() != null) {
-                rowSet = future.get();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            CachedRowSet cachedRowSet = new CachedRowSetImpl();
+            cachedRowSet.populate(resultSet);
+            resultSet.close();
+            if(cachedRowSet.size() > 0) return cachedRowSet;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return rowSet;
+        return null;
     }
 
     /**
@@ -148,8 +118,8 @@ public abstract class Database {
      * @return A PreparedStatement object.
      */
     public PreparedStatement prepareStatement(String query, String... vars) {
-        try {
-            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+        try (Connection c = getConnection()){
+            PreparedStatement preparedStatement = c.prepareStatement(query);
 
             int x = 0;
 
