@@ -58,8 +58,16 @@ public abstract class Database {
             e.printStackTrace();
         }
 
-        if (getConnection() == null) {
+        Connection c = getConnection();
+        if (c == null) {
             ByteCore.PLUGIN.getLogger().severe("[ByteCore] " + ByteCore.PLUGIN.getName() + " was unable to connect to the database");
+        } else
+        {
+            try {
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
