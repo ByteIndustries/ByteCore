@@ -118,7 +118,8 @@ public abstract class Database {
      * @return A PreparedStatement object.
      */
     public PreparedStatement prepareStatement(String query, String... vars) {
-        try (Connection c = getConnection()){
+        try {
+            Connection c = getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(query);
 
             int x = 0;
