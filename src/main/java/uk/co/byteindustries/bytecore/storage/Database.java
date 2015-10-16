@@ -93,7 +93,7 @@ public abstract class Database {
             cachedRowSet.populate(resultSet);
             resultSet.close();
             preparedStatement.getConnection().close();
-            if(cachedRowSet.size() > 0) return cachedRowSet;
+            if(cachedRowSet.next()) return cachedRowSet;
         } catch (SQLException e) {
 
             e.printStackTrace();
