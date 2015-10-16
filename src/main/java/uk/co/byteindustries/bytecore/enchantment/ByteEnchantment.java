@@ -248,7 +248,7 @@ public abstract class ByteEnchantment extends Enchantment implements Listener {
         return true;
     }
 
-    private boolean isItemEnchanted(ItemStack item) {
+    protected boolean isItemEnchanted(ItemStack item) {
         if(item == null) {
             return false;
         }
