@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Bukkit;
 import uk.co.byteindustries.bytecore.ByteCore;
 
+import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,10 @@ import java.util.concurrent.*;
 public abstract class Database {
 
     private HikariDataSource dataSource;
+
+    public DataSource getDatasource(){
+        return dataSource;
+    }
 
     /**
      * Initialize a Database connection.
@@ -53,8 +58,16 @@ public abstract class Database {
             e.printStackTrace();
         }
 
-        if (getConnection() == null) {
+        Connection c = getConnection();
+        if (c == null) {
             ByteCore.PLUGIN.getLogger().severe("[ByteCore] " + ByteCore.PLUGIN.getName() + " was unable to connect to the database");
+        } else
+        {
+            try {
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -79,9 +92,16 @@ public abstract class Database {
             CachedRowSet cachedRowSet = new CachedRowSetImpl();
             cachedRowSet.populate(resultSet);
             resultSet.close();
-            if(cachedRowSet.size() > 0) return cachedRowSet;
+            preparedStatement.getConnection().close();
+            if(cachedRowSet.next()) return cachedRowSet;
         } catch (SQLException e) {
+
             e.printStackTrace();
+            try {
+                preparedStatement.getConnection().close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
         return null;
     }
@@ -118,7 +138,8 @@ public abstract class Database {
      * @return A PreparedStatement object.
      */
     public PreparedStatement prepareStatement(String query, String... vars) {
-        try (Connection c = getConnection()){
+        try {
+            Connection c = getConnection();
             PreparedStatement preparedStatement = c.prepareStatement(query);
 
             int x = 0;
